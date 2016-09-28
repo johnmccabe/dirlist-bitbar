@@ -38,8 +38,8 @@ end
 # @param submenu [TrueClass|FalseClass] whether the menu section belongs
 #   in a submenu
 def print_section(repo_hash, range_fn, title, color, submenu = false)
-  return if repo_hash.empty?
   filtered_repo_hash = repo_hash.select { |_, age| range_fn.call(age) }
+  return if filtered_repo_hash.empty?
   submenu_prefix = submenu ? '-- ' : ''
   puts '---',
        "#{title} | color=#{color}"
