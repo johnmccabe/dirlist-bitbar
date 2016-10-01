@@ -37,14 +37,15 @@ end
 # @param color [String] the color of the title
 # @param submenu [TrueClass|FalseClass] whether the menu section belongs
 #   in a submenu
-def print_section(repo_hash, range_fn, title, color, submenu = false)
-  filtered_repo_hash = repo_hash.select { |_, age| range_fn.call(age) }
+def print_section(repo_hash, range_filter, title, color, submenu = false)
+  filtered_repo_hash = repo_hash.select { |_, age| range_filter.call(age) }
   return if filtered_repo_hash.empty?
   submenu_prefix = submenu ? '-- ' : ''
   puts '---',
        "#{title} | color=#{color}"
   filtered_repo_hash.sort_by { |_k, v| v }.each do |repo, _|
     repo_basename = Pathname.new(repo).basename
+    # Set your preferred editor below
     puts "#{submenu_prefix}#{repo_basename}|bash=/usr/local/bin/code param1=-n param2=#{repo} terminal=false"
   end
 end
